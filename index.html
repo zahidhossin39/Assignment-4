@@ -1,332 +1,491 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Tracker | Assaignment-4</title>
     <!-- Tailwindcss  -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-        <!-- Google-fonts  -->
+    <!-- Google-fonts  -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
       rel="stylesheet"
     />
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
     <style>
       * {
         font-family: "Manrope", sans-serif;
       }
     </style>
-</head>
-<body class="bg-white min-h-screen p-8 ">
-
+  </head>
+  <body class="bg-white min-h-screen p-8">
     <div class="max-w-5xl mx-auto">
-        <h1 class="text-3xl font-bold mb-8 ">Job Application Tracker</h1>
+      <h1 class="text-3xl font-bold mb-8">Job Application Tracker</h1>
 
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
-                <p class="text-sm font-medium text-slate-500 mb-1">Total</p>
-                <p class="text-4xl font-bold text-slate-900">8</p>
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+          <p class="text-sm font-medium text-slate-500 mb-1">Total</p>
+          <p class="text-4xl font-bold text-slate-900" id="state-total">0</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+          <p class="text-sm font-medium text-slate-500 mb-1">Interview</p>
+          <p class="text-4xl font-bold text-green-500" id="state-interview">
+            0
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+          <p class="text-sm font-medium text-slate-500 mb-1">Rejected</p>
+          <p class="text-4xl font-bold text-red-500" id="state-rejected">0</p>
+        </div>
+      </section>
+
+      <section>
+        <!-- 8 jobs  -->
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-bold text-slate-800">Available Jobs</h2>
+          <span class="text-slate-500 text-sm">
+            <span id="available">8 </span> jobs</span
+          >
+        </div>
+        <!-- all / Interview / rejected -->
+        <div class="flex gap-3 mb-8">
+          <button
+            id="tab-all"
+            onclick="switchTab('all')"
+            class="px-6 py-2 border border-slate-200 text-black rounded-md text-slate-500 font-medium"
+          >
+            All
+          </button>
+          <button
+            id="tab-interview"
+            onclick="switchTab('interview')"
+            class="px-6 py-2 border border-slate-200 text-slate-500 rounded-md text-sm font-medium"
+          >
+            Interview
+          </button>
+          <button
+            id="tab-rejected"
+            onclick="switchTab('rejected')"
+            class="px-6 py-2 border border-slate-200 text-slate-500 rounded-md text-sm font-medium"
+          >
+            Rejected
+          </button>
+        </div>
+
+        <!-- Container for ALL jobs -->
+        <div id="jobs-container">
+          <div id="all-container" class="space-y-6">
+            <!-- 1  -->
+            <div
+              class="card bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative"
+            >
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-blue-900">
+                  Mobile First Corp
+                </h3>
+                <p class="text-slate-500">React Native Developer</p>
+              </div>
+
+              <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
+                <span>Remote</span>
+                <span>• Full-time</span>
+                <span>• $130,000 - $170,000</span>
+              </div>
+
+              <div class="mb-4">
+                <span
+                  class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider status"
+                  >Not Applied</span
+                >
+              </div>
+
+              <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                Build cross-platform mobile applications using React Native.
+                Work on products used by millions of users worldwide.
+              </p>
+
+              <div class="flex gap-3">
+                <button
+                  class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase hover:bg-green-50 transition-colors interview"
+                >
+                  Interview
+                </button>
+                <button
+                  class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase hover:bg-red-50 transition-colors rejected"
+                >
+                  Rejected
+                </button>
+                <button
+                  class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors delete"
+                >
+                  <i class="fa-regular fa-trash-can pointer-events-none"></i>
+                </button>
+              </div>
             </div>
+            <!-- 2 -->
+            <div
+              class="card bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative"
+            >
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-blue-900">WebFlow Agency</h3>
+                <p class="text-slate-500">Web Designer & Developer</p>
+              </div>
 
-            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
-                <p class="text-sm font-medium text-slate-500 mb-1">Interview</p>
-                <p class="text-4xl font-bold text-green-500">0</p>
+              <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
+                <span>Los Angeles,CA</span>
+                <span>• Part-time </span>
+                <span>• $80,000 - $120,000</span>
+              </div>
+
+              <div class="mb-4">
+                <span
+                  class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider status"
+                  >Not Applied</span
+                >
+              </div>
+
+              <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                Create stunning web experiences for high-profile clients. Must
+                have portfolio and experience with modern web design trends.
+              </p>
+
+              <div class="flex gap-3">
+                <button
+                  class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase hover:bg-green-50 transition-colors interview"
+                >
+                  Interview
+                </button>
+                <button
+                  class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase hover:bg-red-50 transition-colors rejected"
+                >
+                  Rejected
+                </button>
+                <button
+                  class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors delete"
+                >
+                  <i class="fa-regular fa-trash-can pointer-events-none"></i>
+                </button>
+              </div>
             </div>
+            <!-- 3  -->
+            <div
+              class="card bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative"
+            >
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-blue-900">
+                  DataViz Solutions
+                </h3>
+                <p class="text-slate-500">Data Visualization Specialist</p>
+              </div>
 
-            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
-                <p class="text-sm font-medium text-slate-500 mb-1">Rejected</p>
-                <p class="text-4xl font-bold text-red-500">0</p>
+              <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
+                <span>Boston, MA </span>
+                <span>• Full-time</span>
+                <span>• $125,000 - $165,000</span>
+              </div>
+
+              <div class="mb-4">
+                <span
+                  class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider status"
+                  >Not Applied</span
+                >
+              </div>
+
+              <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                Transform complex data into compelling visualizations. Required
+                skills: D3.js, React, and strong analytical thinking.
+              </p>
+
+              <div class="flex gap-3">
+                <button
+                  class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase hover:bg-green-50 transition-colors interview"
+                >
+                  Interview
+                </button>
+                <button
+                  class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase hover:bg-red-50 transition-colors rejected"
+                >
+                  Rejected
+                </button>
+                <button
+                  class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors delete"
+                >
+                  <i class="fa-regular fa-trash-can pointer-events-none"></i>
+                </button>
+              </div>
             </div>
-        </section>
+            <!-- 4  -->
+            <div
+              class="card bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative"
+            >
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-blue-900">CloudFirst Inc</h3>
+                <p class="text-slate-500">Backend Developer</p>
+              </div>
 
-        <section>
-            <!-- 8 jobs  -->
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold text-slate-800">Available Jobs</h2>
-                <span class="text-slate-500 text-sm">8 jobs</span>
+              <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
+                <span>Seattle, WA </span>
+                <span>• Full-time</span>
+                <span>• $140,000 - $190,000</span>
+              </div>
+
+              <div class="mb-4">
+                <span
+                  class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider status"
+                  >Not Applied</span
+                >
+              </div>
+
+              <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                Design and maintain scalable backend systems using Python and
+                AWS. Work with modern DevOps practices and cloud infrastructure.
+              </p>
+
+              <div class="flex gap-3">
+                <button
+                  class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase hover:bg-green-50 transition-colors interview"
+                >
+                  Interview
+                </button>
+                <button
+                  class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase hover:bg-red-50 transition-colors rejected"
+                >
+                  Rejected
+                </button>
+                <button
+                  class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors delete"
+                >
+                  <i class="fa-regular fa-trash-can pointer-events-none"></i>
+                </button>
+              </div>
             </div>
-            <!-- all / Interview / rejected -->
-             
-            <div class="flex gap-3 mb-8">
-                <button class="px-6 py-2 bg-blue-600 text-white rounded-md text-sm font-medium">All</button>
-                <button class="px-6 py-2 bg-white border border-slate-200 text-slate-500 rounded-md text-sm font-medium hover:bg-slate-50">Interview</button>
-                <button class="px-6 py-2 bg-white border border-slate-200 text-slate-500 rounded-md text-sm font-medium hover:bg-slate-50">Rejected</button>
+            <!-- 5 -->
+            <div
+              class="card bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative"
+            >
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-blue-900">Innovation Labs</h3>
+                <p class="text-slate-500">UI/UX Engineer</p>
+              </div>
+
+              <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
+                <span>Austin, TX</span>
+                <span>• Full-time</span>
+                <span>•$110,000 - $150,000</span>
+              </div>
+
+              <div class="mb-4">
+                <span
+                  class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider status"
+                  >Not Applied</span
+                >
+              </div>
+
+              <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                Create beautiful and functional user interfaces for our suite of
+                products. Strong design skills and frontend development
+                expertise required.
+              </p>
+
+              <div class="flex gap-3">
+                <button
+                  class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase hover:bg-green-50 transition-colors interview"
+                >
+                  Interview
+                </button>
+                <button
+                  class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase hover:bg-red-50 transition-colors rejected"
+                >
+                  Rejected
+                </button>
+                <button
+                  class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors delete"
+                >
+                  <i class="fa-regular fa-trash-can pointer-events-none"></i>
+                </button>
+              </div>
             </div>
-            <!-- card start  -->
-             <!-- 1  -->
-            <div class="space-y-6">
-                
-                <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative">
-                    <button class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                    
-                    <div class="mb-4">
-                        <h3 class="text-xl font-bold text-blue-900">Mobile First Corp</h3>
-                        <p class="text-slate-500">React Native Developer</p>
-                    </div>
+            <!-- 6 -->
+            <div
+              class="card bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative"
+            >
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-blue-900">
+                  MegaCorp Solutions
+                </h3>
+                <p class="text-slate-500">JavaScript Developer</p>
+              </div>
 
-                    <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
-                        <span>Remote</span>
-                        <span>• Full-time</span>
-                        <span>• $130,000 - $170,000</span>
-                    </div>
+              <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
+                <span>New York, NY </span>
+                <span>• Full-time</span>
+                <span>• $130,000 - $170,00</span>
+              </div>
 
-                    <div class="mb-4">
-                        <span class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">Not Applied</span>
-                    </div>
+              <div class="mb-4">
+                <span
+                  class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider status"
+                  >Not Applied</span
+                >
+              </div>
 
-                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                        Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.
-                    </p>
+              <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                Build enterprise applications with JavaScript and modern frameworks. We offer competitive compensation, health insurance, and professional development opportunities.
+              </p>
 
-                    <div class="flex gap-3">
-                        <button class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase hover:bg-green-50 transition-colors">Interview</button>
-                        <button class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase hover:bg-red-50 transition-colors">Rejected</button>
-                    </div>
-                </div>
-                <!-- 2 -->
-                <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative">
-                    <button class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                    <button class="absolute top-8 right-8 text-slate-300 hover:text-red-500 transition-colors">
-                        <i data-lucide="trash-2" class="w-5 h-5"></i>
-                    </button>
-                    
-                    <div class="mb-4">
-                        <h3 class="text-xl font-bold text-blue-900">WebFlow Agency</h3>
-                        <p class="text-slate-500">Web Designer & Developer</p>
-                    </div>
-
-                    <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
-                        <span>Los Angeles, CA</span>
-                        <span>• Part-time</span>
-                        <span>• $80,000 - $120,000</span>
-                    </div>
-
-                    <div class="mb-4">
-                        <span class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">Not Applied</span>
-                    </div>
-
-                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                        Create stunning web experiences for high-profile clients. Must have portfolio and experience with modern web design trends.
-                    </p>
-
-                    <div class="flex gap-3">
-                        <button class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase">Interview</button>
-                        <button class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase">Rejected</button>
-                    </div>
-                </div>
-                <!-- 3  -->
-                <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative">
-                    <button class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                    <button class="absolute top-8 right-8 text-slate-300 hover:text-red-500 transition-colors">
-                        <i data-lucide="trash-2" class="w-5 h-5"></i>
-                    </button>
-                    
-                    <div class="mb-4">
-                        <h3 class="text-xl font-bold text-blue-900">WebFlow Agency</h3>
-                        <p class="text-slate-500">Web Designer & Developer</p>
-                    </div>
-
-                    <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
-                        <span>Los Angeles, CA</span>
-                        <span>• Part-time</span>
-                        <span>• $80,000 - $120,000</span>
-                    </div>
-
-                    <div class="mb-4">
-                        <span class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">Not Applied</span>
-                    </div>
-
-                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                        Create stunning web experiences for high-profile clients. Must have portfolio and experience with modern web design trends.
-                    </p>
-
-                    <div class="flex gap-3">
-                        <button class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase">Interview</button>
-                        <button class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase">Rejected</button>
-                    </div>
-                </div>
-                <!-- 4  -->
-                <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative">
-                    <button class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                    <button class="absolute top-8 right-8 text-slate-300 hover:text-red-500 transition-colors">
-                        <i data-lucide="trash-2" class="w-5 h-5"></i>
-                    </button>
-                    
-                    <div class="mb-4">
-                        <h3 class="text-xl font-bold text-blue-900">WebFlow Agency</h3>
-                        <p class="text-slate-500">Web Designer & Developer</p>
-                    </div>
-
-                    <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
-                        <span>Los Angeles, CA</span>
-                        <span>• Part-time</span>
-                        <span>• $80,000 - $120,000</span>
-                    </div>
-
-                    <div class="mb-4">
-                        <span class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">Not Applied</span>
-                    </div>
-
-                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                        Create stunning web experiences for high-profile clients. Must have portfolio and experience with modern web design trends.
-                    </p>
-
-                    <div class="flex gap-3">
-                        <button class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase">Interview</button>
-                        <button class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase">Rejected</button>
-                    </div>
-                </div>
-                <!-- 5  -->
-                <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative">
-                    <button class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                    <button class="absolute top-8 right-8 text-slate-300 hover:text-red-500 transition-colors">
-                        <i data-lucide="trash-2" class="w-5 h-5"></i>
-                    </button>
-                    
-                    <div class="mb-4">
-                        <h3 class="text-xl font-bold text-blue-900">WebFlow Agency</h3>
-                        <p class="text-slate-500">Web Designer & Developer</p>
-                    </div>
-
-                    <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
-                        <span>Los Angeles, CA</span>
-                        <span>• Part-time</span>
-                        <span>• $80,000 - $120,000</span>
-                    </div>
-
-                    <div class="mb-4">
-                        <span class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">Not Applied</span>
-                    </div>
-
-                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                        Create stunning web experiences for high-profile clients. Must have portfolio and experience with modern web design trends.
-                    </p>
-
-                    <div class="flex gap-3">
-                        <button class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase">Interview</button>
-                        <button class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase">Rejected</button>
-                    </div>
-                </div>
-                <!-- 6  -->
-                <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative">
-                    <button class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                    <button class="absolute top-8 right-8 text-slate-300 hover:text-red-500 transition-colors">
-                        <i data-lucide="trash-2" class="w-5 h-5"></i>
-                    </button>
-                    
-                    <div class="mb-4">
-                        <h3 class="text-xl font-bold text-blue-900">WebFlow Agency</h3>
-                        <p class="text-slate-500">Web Designer & Developer</p>
-                    </div>
-
-                    <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
-                        <span>Los Angeles, CA</span>
-                        <span>• Part-time</span>
-                        <span>• $80,000 - $120,000</span>
-                    </div>
-
-                    <div class="mb-4">
-                        <span class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">Not Applied</span>
-                    </div>
-
-                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                        Create stunning web experiences for high-profile clients. Must have portfolio and experience with modern web design trends.
-                    </p>
-
-                    <div class="flex gap-3">
-                        <button class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase">Interview</button>
-                        <button class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase">Rejected</button>
-                    </div>
-                </div>
-                <!-- 7  -->
-                <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative">
-                    <button class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                    <button class="absolute top-8 right-8 text-slate-300 hover:text-red-500 transition-colors">
-                        <i data-lucide="trash-2" class="w-5 h-5"></i>
-                    </button>
-                    
-                    <div class="mb-4">
-                        <h3 class="text-xl font-bold text-blue-900">WebFlow Agency</h3>
-                        <p class="text-slate-500">Web Designer & Developer</p>
-                    </div>
-
-                    <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
-                        <span>Los Angeles, CA</span>
-                        <span>• Part-time</span>
-                        <span>• $80,000 - $120,000</span>
-                    </div>
-
-                    <div class="mb-4">
-                        <span class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">Not Applied</span>
-                    </div>
-
-                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                        Create stunning web experiences for high-profile clients. Must have portfolio and experience with modern web design trends.
-                    </p>
-
-                    <div class="flex gap-3">
-                        <button class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase">Interview</button>
-                        <button class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase">Rejected</button>
-                    </div>
-                </div>
-                <!-- 8 -->
-                <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative">
-                    <button class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                    <button class="absolute top-8 right-8 text-slate-300 hover:text-red-500 transition-colors">
-                        <i data-lucide="trash-2" class="w-5 h-5"></i>
-                    </button>
-                    
-                    <div class="mb-4">
-                        <h3 class="text-xl font-bold text-blue-900">WebFlow Agency</h3>
-                        <p class="text-slate-500">Web Designer & Developer</p>
-                    </div>
-
-                    <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
-                        <span>Los Angeles, CA</span>
-                        <span>• Part-time</span>
-                        <span>• $80,000 - $120,000</span>
-                    </div>
-
-                    <div class="mb-4">
-                        <span class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">Not Applied</span>
-                    </div>
-
-                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                        Create stunning web experiences for high-profile clients. Must have portfolio and experience with modern web design trends.
-                    </p>
-
-                    <div class="flex gap-3">
-                        <button class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase">Interview</button>
-                        <button class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase">Rejected</button>
-                    </div>
-                </div>
-
+              <div class="flex gap-3">
+                <button
+                  class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase hover:bg-green-50 transition-colors interview"
+                >
+                  Interview
+                </button>
+                <button
+                  class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase hover:bg-red-50 transition-colors rejected"
+                >
+                  Rejected
+                </button>
+                <button
+                  class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors delete"
+                >
+                  <i class="fa-regular fa-trash-can pointer-events-none"></i>
+                </button>
+              </div>
             </div>
-        </section>
+            <!-- 7 -->
+            <div
+              class="card bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative"
+            >
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-blue-900">
+                  StartupXYZ
+                </h3>
+                <p class="text-slate-500">Full Stack Engineer</p>
+              </div>
+
+              <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
+                <span>Remote</span>
+                <span>• Full-time</span>
+                <span>•$120,000 - $160,000</span>
+              </div>
+
+              <div class="mb-4">
+                <span
+                  class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider status"
+                  >Not Applied</span
+                >
+              </div>
+
+              <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                Join our fast-growing startup and work on our core platform. Experience with Node.js and React required. Great benefits and equity package included.
+              </p>
+
+              <div class="flex gap-3">
+                <button
+                  class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase hover:bg-green-50 transition-colors interview"
+                >
+                  Interview
+                </button>
+                <button
+                  class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase hover:bg-red-50 transition-colors rejected"
+                >
+                  Rejected
+                </button>
+                <button
+                  class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors delete"
+                >
+                  <i class="fa-regular fa-trash-can pointer-events-none"></i>
+                </button>
+              </div>
+            </div>
+            <!-- 8 -->
+            <div
+              class="card bg-white p-8 rounded-xl border border-slate-100 shadow-sm relative"
+            >
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-blue-900">
+                  TechCorp Industries
+                </h3>
+                <p class="text-slate-500">Senior Frontend Developer</p>
+              </div>
+
+              <div class="flex flex-wrap gap-4 text-sm text-slate-400 mb-4">
+                <span>Remote</span>
+                <span>• Full-time</span>
+                <span>• $130,000 - $170,000</span>
+              </div>
+
+              <div class="mb-4">
+                <span
+                  class="bg-slate-100 text-blue-900 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider status"
+                  >Not Applied</span
+                >
+              </div>
+
+              <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                We are looking for an experienced Frontend Developer to build scalable web applications using React and TypeScript. You will work with a talented team on cutting-edge projects.
+              </p>
+
+              <div class="flex gap-3">
+                <button
+                  class="px-4 py-1.5 border border-green-500 text-green-500 text-xs font-bold rounded uppercase hover:bg-green-50 transition-colors interview"
+                >
+                  Interview
+                </button>
+                <button
+                  class="px-4 py-1.5 border border-red-400 text-red-400 text-xs font-bold rounded uppercase hover:bg-red-50 transition-colors rejected"
+                >
+                  Rejected
+                </button>
+                <button
+                  class="absolute p-2 border top-8 right-8 text-slate-300 hover:text-red-900 hover:bg-red-100 rounded-full transition-colors delete"
+                >
+                  <i class="fa-regular fa-trash-can pointer-events-none"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Container for INTERVIEW jobs -->
+          <div id="interview-container" class="hidden space-y-6">
+            <p class="text-center text-slate-500">
+              No jobs moved to Interview yet.
+            </p>
+          </div>
+
+          <!-- Container for REJECTED jobs -->
+          <div id="rejected-container" class="hidden space-y-6">
+            <p class="text-center text-slate-500">
+              No jobs moved to Rejected yet.
+            </p>
+          </div>
+        </div>
+
+        <!-- empty state  -->
+        <div
+          id="empty-state"
+          class="flex-col bg-slate-50 items-center justify-center py-20 gap-4 text-center"
+        >
+          <img class="block mx-auto mb-4" src="jobs.png" alt="" />
+          <p class="text-2xl font-bold text-slate-700">No jobs available</p>
+          <p class="text-sm text-slate-400">
+            check back soon for new job opportunities
+          </p>
+        </div>
+      </section>
     </div>
 
-    
-</body>
-
+    <script src="script/script.js"></script>
+  </body>
 </html>
